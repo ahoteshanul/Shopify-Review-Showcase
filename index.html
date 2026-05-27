@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-shopping-bag-full-color-66166b2e55d67988b56b4bd28b63c271e2b9713358cb723070a92bde17ad7d63.svg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Light UI colors */
+  --bg:        #F5F6FA;
+  --bg-2:      #FFFFFF;
+  --bg-3:      #EEF0F6;
+  --border:    #E2E4EE;
+  --border-2:  #D0D3E0;
+  --tx-p:      #111827;
+  --tx-s:      #4B5563;
+  --tx-t:      #9CA3AF;
+  --accent:    #6366F1;
+  --accent-h:  #4F46E5;
+  --accent-bg: #EEF2FF;
+  /* Card-section vars */
+  --card-bg:   #FFFFFF;
+  --card-sh:   0 1px 3px rgba(0,0,0,.06), 0 1px 8px rgba(0,0,0,.04);
+  --r:         10px;
+  --font-h:    'Poppins', system-ui, sans-serif;
+  --font-b:    'Inter', system-ui, sans-serif;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: var(--font-b);
+  background: var(--bg);
+  color: var(--tx-p);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout: 50/50 ── */
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ══════════════════════
+   LEFT PANEL
+══════════════════════ */
+.panel-left {
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  height: 100vh;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-2) transparent;
+}
+.panel-left::-webkit-scrollbar { width: 4px; }
+.panel-left::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+
+/* Sticky header */
+.sidebar-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-2);
+  position: sticky; top: 0; z-index: 20;
+}
+.brand { display: flex; align-items: center; gap: 9px; }
+.brand-icon {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), #A78BFA);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: white;
+}
+.brand-name {
+  font-family: var(--font-h);
+  font-size: 17px; font-weight: 700; color: var(--tx-p);
+  letter-spacing: -.02em;
+}
+.brand-sub {
+  font-size: 11px; color: var(--tx-t); margin-top: 1px;
+  font-weight: 400;
+}
+
+/* Body padding */
+.sidebar-body { padding: 14px 16px 28px; display: flex; flex-direction: column; gap: 10px; }
+
+/* ── Section card ── */
+.sc {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--card-sh);
+  padding: 14px 15px;
+}
+.sc-title {
+  font-family: var(--font-h);
+  font-size: 11px; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--tx-t);
+  margin-bottom: 11px;
+}
+
+/* ── Form elements ── */
+.field { margin-bottom: 9px; }
+.field:last-child { margin-bottom: 0; }
+.field-lbl {
+  font-size: 11.5px; font-weight: 500; color: var(--tx-s);
+  margin-bottom: 4px; display: block;
+}
+input[type=text], input[type=date], textarea {
+  font-family: var(--font-b); font-size: 13px;
+  padding: 8px 11px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--tx-p); outline: none; width: 100%;
+  transition: border-color .18s, box-shadow .18s;
+}
+input[type=text]:focus, input[type=date]:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.12);
+  background: #fff;
+}
+textarea { resize: none; min-height: 88px; line-height: 1.55; }
+
+/* ── Stars rating ── */
+.stars-row { display: flex; gap: 2px; }
+.star-btn {
+  background: none; border: none; cursor: pointer; padding: 2px;
+  line-height: 1; border-radius: 5px;
+  transition: transform .1s;
+}
+.star-btn:hover { transform: scale(1.25); }
+.star-btn svg { display: block; }
+
+/* ── Toggle row ── */
+.tog-list { display: flex; flex-direction: column; gap: 1px; }
+.tog-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--bg-3);
+}
+.tog-row:last-child { border-bottom: none; padding-bottom: 0; }
+.tog-row:first-child { padding-top: 0; }
+.tog-lbl { font-size: 13px; font-weight: 500; color: var(--tx-p); }
+.tog-sub { font-size: 11px; color: var(--tx-t); margin-top: 1px; }
+
+/* App toggle row has icon */
+.tog-row-app { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--bg-3); }
+.tog-row-app:last-child { border-bottom: none; padding-bottom: 0; }
+.tog-row-app:first-child { padding-top: 0; }
+.app-tog-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  object-fit: cover; flex-shrink: 0; border: 1px solid var(--border);
+}
+.app-tog-info { flex: 1; min-width: 0; }
+.app-tog-name { font-size: 12px; font-weight: 500; color: var(--tx-p); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.app-tog-tagline { font-size: 10.5px; color: var(--tx-t); }
+
+/* Toggle switch */
+.tog { position: relative; width: 38px; height: 21px; flex-shrink: 0; cursor: pointer; }
+.tog input { opacity: 0; width: 0; height: 0; }
+.tog-track {
+  position: absolute; inset: 0;
+  background: var(--bg-3);
+  border: 1.5px solid var(--border-2);
+  border-radius: 30px; transition: all .2s;
+}
+.tog input:checked + .tog-track { background: var(--accent); border-color: var(--accent); }
+.tog-thumb {
+  position: absolute; top: 2.5px; left: 2.5px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: white; transition: transform .2s;
+  pointer-events: none; box-shadow: 0 1px 3px rgba(0,0,0,.2);
+}
+.tog input:checked ~ .tog-thumb { transform: translateX(17px); }
+
+/* ── Palette ── */
+.pal-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.swatch {
+  width: 32px; height: 32px; border-radius: 9px;
+  cursor: pointer; border: 2px solid transparent;
+  transition: transform .14s, box-shadow .14s;
+  flex-shrink: 0; position: relative;
+}
+.swatch:hover { transform: scale(1.12); }
+.swatch.sel {
+  box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px rgba(99,102,241,.2);
+  transform: scale(1.06);
+}
+.swatch.sel::after {
+  content: '✓'; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: white; font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+/* ── Theme buttons ── */
+.theme-row { display: flex; gap: 8px; }
+.theme-btn {
+  flex: 1; padding: 8px 12px; font-size: 12.5px; font-weight: 500;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  cursor: pointer; font-family: var(--font-b); color: var(--tx-s);
+  background: var(--bg); transition: all .18s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.theme-btn:hover { border-color: var(--border-2); color: var(--tx-p); background: var(--bg-2); }
+.theme-btn.on { background: var(--tx-p); color: #fff; border-color: var(--tx-p); font-weight: 600; }
+
+/* ── Aspect ratio buttons ── */
+.asp-row { display: flex; gap: 8px; }
+.asp-btn {
+  flex: 1; padding: 9px 4px 8px; font-size: 10px; font-weight: 600;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  cursor: pointer; font-family: var(--font-b); color: var(--tx-t);
+  background: var(--bg); transition: all .18s;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.asp-btn:hover { border-color: var(--border-2); color: var(--tx-s); background: var(--bg-2); }
+.asp-btn.on { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); border-width: 1.5px; }
+.asp-icon { border: 1.5px solid currentColor; border-radius: 2px; opacity: .75; }
+
+/* ── Download button ── */
+.dl-btn {
+  width: 100%; padding: 12px;
+  background: var(--accent);
+  color: white; border: none; border-radius: var(--r);
+  font-family: var(--font-h); font-size: 13.5px; font-weight: 600;
+  cursor: pointer; letter-spacing: .01em;
+  transition: background .18s, transform .12s;
+  box-shadow: 0 4px 14px rgba(99,102,241,.3);
+}
+.dl-btn:hover { background: var(--accent-h); }
+.dl-btn:active { transform: scale(.98); }
+
+/* ══════════════════════
+   RIGHT PANEL
+══════════════════════ */
+.panel-right {
+  background: var(--bg-3);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px; height: 100vh; overflow: hidden; padding: 28px;
+  position: relative;
+}
+/* Subtle dot grid */
+.panel-right::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(99,102,241,.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none; z-index: 0;
+}
+.preview-header {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; flex-shrink: 0; position: relative; z-index: 1;
+}
+.prev-lbl {
+  font-family: var(--font-h); font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--tx-t);
+}
+.dims-pill {
+  font-size: 11px; color: var(--tx-t);
+  background: var(--bg-2); border: 1px solid var(--border);
+  padding: 3px 10px; border-radius: 20px;
+  font-variant-numeric: tabular-nums;
+}
+.prev-wrap {
+  flex: 1; width: 100%;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 0; position: relative; z-index: 1;
+}
+#preview {
+  display: block; max-width: 100%; max-height: 100%;
+  width: auto; height: auto; border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,.04), 0 10px 40px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.08);
+  transition: box-shadow .3s;
+}
+#preview:hover { box-shadow: 0 8px 60px rgba(0,0,0,.18), 0 2px 12px rgba(0,0,0,.1); }
+
+@media (max-width:860px) {
+  .app { grid-template-columns: 1fr; height: auto; overflow: auto; }
+  body { overflow: auto; }
+  .panel-left  { height: auto; }
+  .panel-right { height: 70vw; min-height: 280px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ═══ LEFT ═══ -->
+  <div class="panel-left">
+
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-icon">✦</div>
+        <div>
+          <div class="brand-name">Review Showcase</div>
+          <div class="brand-sub">Shopify Review → Social Image</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-body">
+
+      <!-- Reviewer -->
+      <div class="sc">
+        <div class="sc-title">Reviewer</div>
+        <div class="field">
+          <label class="field-lbl" for="rname">Full name</label>
+          <input type="text" id="rname" value="Matt Barrios" oninput="render()" placeholder="e.g. Sarah Johnson">
+        </div>
+        <div class="field">
+          <label class="field-lbl" for="rdate">Review date</label>
+          <input type="date" id="rdate" oninput="render()">
+        </div>
+      </div>
+
+      <!-- Star Rating -->
+      <div class="sc">
+        <div class="sc-title">Star Rating</div>
+        <div class="stars-row" id="stars-row"></div>
+      </div>
+
+      <!-- Review Content -->
+      <div class="sc">
+        <div class="sc-title">Review Content</div>
+        <textarea id="rcontent" oninput="render()" placeholder="Paste the review text here…">I couldn't be happier with the service I received! From start to finish, everything was handled with care and professionalism. The team was always there to answer my questions and made sure I was completely satisfied. It's rare to find such great customer service these days—highly recommend!</textarea>
+      </div>
+
+      <!-- Display Options -->
+      <div class="sc">
+        <div class="sc-title">Display Options</div>
+        <div class="tog-list">
+          <div class="tog-row">
+            <div><div class="tog-lbl">Profile icon</div></div>
+            <label class="tog"><input type="checkbox" id="tog-avatar" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+          </div>
+          <div class="tog-row">
+            <div><div class="tog-lbl">Star rating</div></div>
+            <label class="tog"><input type="checkbox" id="tog-stars" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+          </div>
+          <div class="tog-row">
+            <div><div class="tog-lbl">Review date</div></div>
+            <label class="tog"><input type="checkbox" id="tog-date" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+          </div>
+          <div class="tog-row">
+            <div><div class="tog-lbl">Shopify logo</div></div>
+            <label class="tog"><input type="checkbox" id="tog-logo" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- App Logo -->
+      <div class="sc">
+        <div class="sc-title">App Logo</div>
+        <div class="tog-list" id="app-tog-list"></div>
+      </div>
+
+      <!-- Background Gradient -->
+      <div class="sc">
+        <div class="sc-title">Background Gradient</div>
+        <div class="pal-grid" id="palette"></div>
+      </div>
+
+      <!-- Card Theme -->
+      <div class="sc">
+        <div class="sc-title">Card Theme</div>
+        <div class="theme-row">
+          <button class="theme-btn" id="btn-light" onclick="setTheme('light')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            Light
+          </button>
+          <button class="theme-btn on" id="btn-dark" onclick="setTheme('dark')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            Dark
+          </button>
+        </div>
+      </div>
+
+      <!-- Export Format -->
+      <div class="sc">
+        <div class="sc-title">Export Format</div>
+        <div class="asp-row">
+          <button class="asp-btn on" id="asp-square" onclick="setAspect('square')">
+            <span class="asp-icon" style="width:17px;height:17px;"></span>Square
+          </button>
+          <button class="asp-btn" id="asp-stories" onclick="setAspect('stories')">
+            <span class="asp-icon" style="width:11px;height:19px;"></span>Stories
+          </button>
+          <button class="asp-btn" id="asp-landscape" onclick="setAspect('landscape')">
+            <span class="asp-icon" style="width:23px;height:14px;"></span>Landscape
+          </button>
+        </div>
+      </div>
+
+      <button class="dl-btn" onclick="dlImg()">↓ &nbsp;Download Image</button>
+
+    </div>
+  </div>
+
+  <!-- ═══ RIGHT ═══ -->
+  <div class="panel-right">
+    <div class="preview-header">
+      <span class="prev-lbl">Live Preview</span>
+      <span class="dims-pill" id="cinfo">1080 × 1080px</span>
+    </div>
+    <div class="prev-wrap">
+      <canvas id="preview"></canvas>
+    </div>
+  </div>
+
+</div>
+<script>
+const STAR_PATH = new Path2D('M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z');
+
+const PALS = [
+  {g:['#FBBA14','#F97B16'], c:{l:'#FFFBEB',d:'#2A1500'}},
+  {g:['#F97B16','#F95A16'], c:{l:'#FFF7ED',d:'#271000'}},
+  {g:['#F95A16','#DC2626'], c:{l:'#FFF1F2',d:'#200808'}},
+  {g:['#D97A5E','#B45309'], c:{l:'#FFF7ED',d:'#1F0D00'}},
+  {g:['#C4D4E8','#A5B4C8'], c:{l:'#F0F4F8',d:'#0E1420'}},
+  {g:['#22D3C8','#06B6D4'], c:{l:'#F0FDFA',d:'#021C22'}},
+  {g:['#6366F1','#818CF8'], c:{l:'#EEF2FF',d:'#0E0C2F'}},
+  {g:['#6D28D9','#7C3AED'], c:{l:'#F5F3FF',d:'#130822'}},
+  {g:['#1E3A8A','#1D4ED8'], c:{l:'#EFF6FF',d:'#060D20'}},
+  {g:['#0EA5E9','#06B6D4'], c:{l:'#F0F9FF',d:'#021420'}},
+  {g:['#2DD4BF','#06B6D4'], c:{l:'#F0FDFA',d:'#021A1C'}},
+  {g:['#10B981','#059669'], c:{l:'#ECFDF5',d:'#021A10'}},
+  {g:['#8B5CF6','#A855F7'], c:{l:'#FAF5FF',d:'#170A2E'}},
+  {g:['#EC4899','#D946EF'], c:{l:'#FDF4FF',d:'#1E0420'}},
+  {g:['#A855F7','#EC4899'], c:{l:'#FDF4FF',d:'#170A2E'}},
+  {g:['#9CA3AF','#6B7280'], c:{l:'#F9FAFB',d:'#111318'}},
+  {g:['#6B7280','#4B5563'], c:{l:'#F3F4F6',d:'#0C0E10'}},
+  {g:['#60A5FA','#818CF8'], c:{l:'#EFF6FF',d:'#080E2F'}},
+  {g:['#818CF8','#A78BFA'], c:{l:'#EEF2FF',d:'#0E0C2F'}},
+  {g:['#60A5FA','#93C5FD'], c:{l:'#EFF6FF',d:'#06101E'}},
+  {g:['#7DD3FC','#93C5FD'], c:{l:'#F0F9FF',d:'#06101E'}},
+  {g:['#818CF8','#C4B5FD'], c:{l:'#EEF2FF',d:'#0E0C2F'}},
+  {g:['#4ADE80','#22D3C8'], c:{l:'#F0FDF4',d:'#021410'}},
+  {g:['#86EFAC','#4ADE80'], c:{l:'#F0FDF4',d:'#021410'}},
+  {g:['#F97316','#EF4444'], c:{l:'#FFF7ED',d:'#200808'}},
+  {g:['#F43F5E','#EC4899'], c:{l:'#FFF1F5',d:'#1E0414'}},
+  {g:['#E879F9','#C084FC'], c:{l:'#FDF4FF',d:'#170A2E'}},
+  {g:['#C084FC','#818CF8'], c:{l:'#FAF5FF',d:'#0E0C2F'}},
+  {g:['#F472B6','#FB7185'], c:{l:'#FFF1F5',d:'#1E0414'}},
+  {g:['#FCA5A5','#FDA4AF'], c:{l:'#FFF1F2',d:'#200808'}},
+  {g:['#F87171','#EF4444'], c:{l:'#FFF1F2',d:'#200808'}},
+  {g:['#F97316','#FB923C'], c:{l:'#FFF7ED',d:'#1F0A00'}},
+  {g:['#FB7185','#F472B6'], c:{l:'#FFF1F5',d:'#1E0414'}},
+  {g:['#60A5FA','#7DD3FC'], c:{l:'#EFF6FF',d:'#06101E'}},
+  {g:['#3B82F6','#60A5FA'], c:{l:'#EFF6FF',d:'#08122A'}},
+  {g:['#6366F1','#60A5FA'], c:{l:'#EEF2FF',d:'#0E0C2F'}},
+  {g:['#38BDF8','#4ADE80'], c:{l:'#F0F9FF',d:'#06101E'}},
+  {g:['#D8B4FE','#FDE68A'], c:{l:'#FAF5FF',d:'#170A2E'}},
+  {g:['#FBCFE8','#FDE68A'], c:{l:'#FDF2F8',d:'#1E0414'}},
+  {g:['#C4B5FD','#DDD6FE'], c:{l:'#FAF5FF',d:'#170A2E'}},
+  {g:['#A78BFA','#818CF8'], c:{l:'#F5F3FF',d:'#0E0C2F'}},
+  {g:['#FDE68A','#FBBA14'], c:{l:'#FFFBEB',d:'#1F0A00'}},
+];
+
+const APPS = [
+  { id:'zepto-pp',    name:'Zepto Product Personalizer',    tagline:'Product customization',   icon:'https://cdn.shopify.com/app-store/listing_images/6c3fa8aea073718ce069cf82939fc5a8/icon/CJrz7L70lu8CEAE=.png' },
+  { id:'infinseo',    name:'InfinSEO',                      tagline:'SEO Image Optimizer',      icon:'https://cdn.shopify.com/app-store/listing_images/3a8d5cff02cc1b766c240b5ff627c918/icon/CNWU1-D344sDEAE=.png' },
+  { id:'popman',      name:'PopMan',                        tagline:'Popups & Social Proof',    icon:'https://cdn.shopify.com/app-store/listing_images/2345700d343d7e2d97f0e9155233ae72/icon/CNGF-v_FnocDEAE=.png' },
+  { id:'zepto-sc',    name:'Zepto Sign Customizer',         tagline:'Sign customization',       icon:'https://cdn.shopify.com/app-store/listing_images/6c7918ff2ed8270427d47dd6a86b5366/icon/CIuFqMzZ3IwDEAE=.png' },
+  { id:'boostlycart', name:'BoostlyCart',                   tagline:'Cart Drawer & Upsell',     icon:'https://cdn.shopify.com/app-store/listing_images/8bc3e3690dfdca1336d343287995ec47/icon/CKLOs9Sog4kDEAE=.png' },
+];
+
+let S = { theme:'dark', aspect:'square', pi:0, stars:5 };
+// appId → null means no app; string = app id that is toggled on
+// Only one app logo shown at a time via toggle (radio-like)
+S.appId = null;
+
+const imgCache = {};
+function loadImg(url){
+  return new Promise(resolve=>{
+    if(!url){resolve(null);return;}
+    if(imgCache[url]!==undefined){resolve(imgCache[url]);return;}
+    const img=new Image();img.crossOrigin='anonymous';
+    img.onload=()=>{imgCache[url]=img;resolve(img);};
+    img.onerror=()=>{imgCache[url]=null;resolve(null);};
+    img.src=url;
+  });
+}
+
+/* ── App toggles (radio-style: only one on at a time) ── */
+function initAppToggles(){
+  const list=document.getElementById('app-tog-list');
+  list.innerHTML='';
+  APPS.forEach(app=>{
+    const row=document.createElement('div');
+    row.className='tog-row-app';
+    const togId=`tog-app-${app.id}`;
+    row.innerHTML=`
+      <img class="app-tog-icon" src="${app.icon}" alt="${app.name}">
+      <div class="app-tog-info">
+        <div class="app-tog-name">${app.name}</div>
+        <div class="app-tog-tagline">${app.tagline}</div>
+      </div>
+      <label class="tog">
+        <input type="checkbox" id="${togId}" onchange="handleAppTog('${app.id}',this.checked)">
+        <div class="tog-track"></div><div class="tog-thumb"></div>
+      </label>`;
+    list.appendChild(row);
+  });
+}
+
+function handleAppTog(id, checked){
+  if(checked){
+    // Turn off all others
+    APPS.forEach(a=>{
+      if(a.id!==id) document.getElementById(`tog-app-${a.id}`).checked=false;
+    });
+    S.appId=id;
+  } else {
+    S.appId=null;
+  }
+  loadImg(APPS.find(a=>a.id===id)?.icon).then(()=>render());
+}
+
+/* ── Shopify logo ── */
+const LOGO_URL='https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-shopping-bag-full-color-66166b2e55d67988b56b4bd28b63c271e2b9713358cb723070a92bde17ad7d63.svg';
+let shopifyLogo=null,logoLoaded=false;
+function loadLogo(){
+  return new Promise(resolve=>{
+    if(logoLoaded){resolve();return;}
+    const img=new Image();img.crossOrigin='anonymous';
+    img.onload=()=>{shopifyLogo=img;logoLoaded=true;resolve();};
+    img.onerror=()=>{logoLoaded=true;resolve();};
+    img.src=LOGO_URL;
+  });
+}
+
+function initPalette(){
+  const g=document.getElementById('palette');g.innerHTML='';
+  PALS.forEach((p,i)=>{
+    const s=document.createElement('div');
+    s.className='swatch'+(i===0?' sel':'');
+    s.style.background=`linear-gradient(135deg,${p.g[0]},${p.g[1]})`;
+    s.onclick=()=>{S.pi=i;document.querySelectorAll('.swatch').forEach((x,j)=>x.classList.toggle('sel',j===i));render();};
+    g.appendChild(s);
+  });
+}
+
+function initStars(){
+  const r=document.getElementById('stars-row');r.innerHTML='';
+  for(let i=1;i<=5;i++){
+    const btn=document.createElement('button');btn.className='star-btn';
+    const filled=i<=S.stars;
+    btn.innerHTML=`<svg width="26" height="26" viewBox="0 0 24 24" fill="${filled?'#F4B731':'#D1D5DB'}">
+      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
+    </svg>`;
+    btn.onclick=()=>{S.stars=i;initStars();render();};
+    r.appendChild(btn);
+  }
+}
+
+function setTheme(t){
+  S.theme=t;
+  document.getElementById('btn-light').classList.toggle('on',t==='light');
+  document.getElementById('btn-dark').classList.toggle('on',t==='dark');
+  render();
+}
+function setAspect(a){
+  S.aspect=a;
+  ['square','stories','landscape'].forEach(x=>document.getElementById('asp-'+x).classList.toggle('on',x===a));
+  render();
+}
+function initDate(){
+  const t=new Date();
+  const y=t.getFullYear(),m=String(t.getMonth()+1).padStart(2,'0'),d=String(t.getDate()).padStart(2,'0');
+  document.getElementById('rdate').value=`${y}-${m}-${d}`;
+}
+function getFormattedDate(){
+  const val=document.getElementById('rdate').value;if(!val)return'';
+  return new Date(val+'T00:00:00').toLocaleDateString('en-US',{month:'long',day:'2-digit',year:'numeric'});
+}
+function getInitials(name){
+  const p=name.trim().split(/\s+/);
+  return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():(p[0][0]||'?').toUpperCase();
+}
+
+/* ── Canvas ── */
+function rrect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+}
+function wrapText(ctx,text,x,y,maxW,lh,maxL){
+  const words=text.split(' ');let line='';const lines=[];
+  for(const w of words){const t=line?line+' '+w:w;if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=w;}else line=t;}
+  if(line)lines.push(line);
+  const vis=lines.slice(0,maxL);
+  vis.forEach((l,i)=>{
+    let txt=l;
+    if(i===maxL-1&&lines.length>maxL){while(ctx.measureText(txt+'…').width>maxW&&txt.length>0)txt=txt.slice(0,-1).trimEnd();txt+='…';}
+    ctx.fillText(txt,x,y+i*lh);
+  });
+  return vis.length;
+}
+function drawSVGStar(ctx,cx,cy,size,color){
+  const sc=size/24;
+  ctx.save();ctx.translate(cx-12*sc,cy-12*sc);ctx.scale(sc,sc);
+  ctx.fillStyle=color;ctx.fill(STAR_PATH);ctx.restore();
+}
+function drawLogoFallback(ctx,cx,cy,sz){
+  const hs=sz/2;ctx.save();ctx.fillStyle='#96BF48';
+  rrect(ctx,cx-hs,cy-hs,sz,sz,sz*.16);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font=`bold ${Math.round(sz*.55)}px Inter,sans-serif`;
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('S',cx,cy+sz*.03);ctx.restore();
+}
+
+/* ── RENDER ── */
+function render(){
+  const canvas=document.getElementById('preview');
+  const ctx=canvas.getContext('2d');
+  const DIMS={square:[1080,1080],stories:[1080,1920],landscape:[1920,1080]};
+  const [W,H]=DIMS[S.aspect];
+  canvas.width=W;canvas.height=H;
+  document.getElementById('cinfo').textContent=`${W} × ${H}px`;
+
+  const pal=PALS[S.pi],isDark=S.theme==='dark';
+  const name   =document.getElementById('rname').value||'Reviewer';
+  const content=document.getElementById('rcontent').value||'';
+  const stars  =S.stars;
+  const showAvatar=document.getElementById('tog-avatar').checked;
+  const showDate  =document.getElementById('tog-date').checked;
+  const showStars =document.getElementById('tog-stars').checked;
+  const showLogo  =document.getElementById('tog-logo').checked;
+  const dateStr   =getFormattedDate();
+
+  /* Selected app */
+  const selApp   = S.appId ? APPS.find(a=>a.id===S.appId) : null;
+  const appImg   = selApp ? imgCache[selApp.icon]||null : null;
+  const showApp  = !!(selApp && appImg);
+
+  /* BG */
+  const bg=ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,pal.g[0]);bg.addColorStop(1,pal.g[1]);
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  [[W*.82,H*.1,W*.42,0.2],[W*.15,H*.9,W*.32,0.15]].forEach(([bx,by,br,a])=>{
+    const grd=ctx.createRadialGradient(bx,by,0,bx,by,br);
+    grd.addColorStop(0,`rgba(255,255,255,${a})`);grd.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=grd;ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);ctx.fill();
+  });
+
+  /* Layout */
+  const isL=S.aspect==='landscape',isS=S.aspect==='stories';
+  const padX=Math.round(W*.05),cardW=W-padX*2;
+  const ip  =Math.round(cardW*(isL?.055:.072));
+  const ipT =Math.round(cardW*(isL?.052:.07));
+  const nameFZ=Math.round(cardW*(isL?.036:.05));
+  const bodyFZ=Math.round(cardW*(isL?.027:.04));
+  const dateFZ=Math.round(cardW*(isL?.022:.032));
+  const stSz  =Math.round(cardW*(isL?.038:.055));
+  const stGap =Math.round(stSz*.28);
+  const lh    =Math.round(bodyFZ*1.62);
+  const maxL  =isL?10:isS?14:8;
+  const avrR  =Math.round(cardW*(isL?.038:.056));
+
+  /* Logo size */
+  const lsz=Math.round(cardW*(isL?.062:.09));
+  const logoGap=Math.round(lsz*.16);
+
+  /* Total logo group width — determines how much space we need top-right */
+  const totalLogoW=(showLogo&&showApp)
+    ? lsz+logoGap+lsz
+    : (showLogo||showApp) ? lsz : 0;
+
+  /* Measure lines */
+  ctx.font=`${bodyFZ}px Inter,sans-serif`;
+  const maxTW=cardW-ip*2;
+  const words=content.split(' ');let ln='';const allL=[];
+  for(const w of words){const t=ln?ln+' '+w:w;if(ctx.measureText(t).width>maxTW&&ln){allL.push(ln);ln=w;}else ln=t;}
+  if(ln)allL.push(ln);
+  const lineCount=Math.min(allL.length,maxL);
+
+  /* Gap sizes — name-to-stars tightened */
+  const gapHB=Math.round(cardW*(isL?.022:.028));   /* header → stars (tight) */
+  const gapST=Math.round(cardW*(isL?.03:.042));    /* stars → text */
+  const gapTD=Math.round(cardW*(isL?.022:.032));   /* text → date */
+  const hdrH =showAvatar?avrR*2:nameFZ;
+
+  let cardH=ipT+hdrH+gapHB;
+  if(showStars)cardH+=stSz+gapST;
+  cardH+=lineCount*lh;
+  if(showDate&&dateStr)cardH+=gapTD+dateFZ;
+  cardH+=ipT;
+
+  const cardY=Math.round((H-cardH)/2),cardX=padX,cardR=Math.round(cardW*.032);
+
+  /* Card fill */
+  ctx.save();
+  ctx.shadowColor='rgba(0,0,0,0.38)';ctx.shadowBlur=Math.round(W*.05);ctx.shadowOffsetY=Math.round(W*.018);
+  rrect(ctx,cardX,cardY,cardW,cardH,cardR);
+  ctx.fillStyle=isDark?pal.c.d:pal.c.l;ctx.fill();
+  ctx.restore();
+  /* Card inner edge highlight */
+  ctx.save();
+  rrect(ctx,cardX,cardY,cardW,cardH,cardR);
+  ctx.strokeStyle=isDark?'rgba(255,255,255,0.06)':'rgba(255,255,255,0.85)';
+  ctx.lineWidth=1.5;ctx.stroke();
+  ctx.restore();
+
+  const cName=isDark?'#FFFFFF':'#111827';
+  const cBody=isDark?'#D1D5DB':'#374151';
+  const cDate=isDark?'#6B7280':'#9CA3AF';
+
+  const hdrTop=cardY+ipT;
+
+  /* ── Logo group — top-right, vertically centered to header row ── */
+  const hdrH_actual=showAvatar?avrR*2:nameFZ;
+  const logoCY=hdrTop+hdrH_actual/2;   /* vertically centered with name row */
+  const groupRightEdge=cardX+cardW-ip;
+  const groupLeftEdge=groupRightEdge-totalLogoW;
+
+  if(showLogo&&showApp){
+    /* App logo left, Shopify right */
+    const appX=groupLeftEdge;
+    const shopX=appX+lsz+logoGap;
+    /* App logo clipped rounded */
+    ctx.save();
+    rrect(ctx,appX,logoCY-lsz/2,lsz,lsz,lsz*.18);
+    ctx.clip();ctx.drawImage(appImg,appX,logoCY-lsz/2,lsz,lsz);ctx.restore();
+    /* Shopify logo */
+    if(shopifyLogo){const p=lsz*.06;ctx.save();ctx.drawImage(shopifyLogo,shopX+p,logoCY-lsz/2+p,lsz-p*2,lsz-p*2);ctx.restore();}
+    else drawLogoFallback(ctx,shopX+lsz/2,logoCY,lsz);
+  } else if(showLogo){
+    const lx=groupRightEdge-lsz/2;
+    if(shopifyLogo){const p=lsz*.06;ctx.save();ctx.drawImage(shopifyLogo,lx-lsz/2+p,logoCY-lsz/2+p,lsz-p*2,lsz-p*2);ctx.restore();}
+    else drawLogoFallback(ctx,lx,logoCY,lsz);
+  } else if(showApp&&appImg){
+    const lx=groupRightEdge-lsz/2;
+    ctx.save();rrect(ctx,lx-lsz/2,logoCY-lsz/2,lsz,lsz,lsz*.18);ctx.clip();
+    ctx.drawImage(appImg,lx-lsz/2,logoCY-lsz/2,lsz,lsz);ctx.restore();
+  }
+
+  /* ── Avatar ── */
+  const hdrCY=hdrTop+(showAvatar?avrR:nameFZ/2);
+  if(showAvatar){
+    const ag=ctx.createLinearGradient(cardX+ip,hdrCY-avrR,cardX+ip+avrR*2,hdrCY+avrR);
+    ag.addColorStop(0,pal.g[0]);ag.addColorStop(1,pal.g[1]);
+    ctx.save();
+    ctx.beginPath();ctx.arc(cardX+ip+avrR,hdrCY,avrR,0,Math.PI*2);
+    ctx.fillStyle=ag;ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.3)';ctx.lineWidth=2;ctx.stroke();
+    ctx.font=`700 ${Math.round(avrR*.7)}px Poppins,sans-serif`;
+    ctx.fillStyle='#FFFFFF';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(getInitials(name),cardX+ip+avrR,hdrCY+Math.round(avrR*.04));
+    ctx.restore();
+  }
+
+  /* ── Name ── */
+  const nameX=showAvatar?cardX+ip+avrR*2+Math.round(cardW*.02):cardX+ip;
+  ctx.save();
+  ctx.font=`700 ${nameFZ}px Poppins,sans-serif`;
+  ctx.fillStyle=cName;ctx.textAlign='left';ctx.textBaseline='middle';
+  ctx.fillText(name,nameX,hdrCY);
+  ctx.restore();
+
+  /* ── Stars ── */
+  let curY=hdrTop+hdrH+gapHB;
+  if(showStars){
+    const sR=stSz/2;let sx=cardX+ip+sR;const sCY=curY+sR;
+    for(let i=0;i<5;i++){
+      const col=i<stars?'#F4B731':(isDark?'rgba(255,255,255,0.18)':'rgba(0,0,0,0.12)');
+      drawSVGStar(ctx,sx,sCY,stSz,col);sx+=stSz+stGap;
+    }
+    curY=sCY+sR+gapST;
+  }
+
+  /* ── Body text ── */
+  ctx.save();
+  ctx.font=`${bodyFZ}px Inter,sans-serif`;
+  ctx.fillStyle=cBody;ctx.textAlign='left';ctx.textBaseline='top';
+  const drawn=wrapText(ctx,content,cardX+ip,curY,maxTW,lh,maxL);
+  curY+=drawn*lh;ctx.restore();
+
+  /* ── Date ── */
+  if(showDate&&dateStr){
+    curY+=gapTD;
+    ctx.save();ctx.font=`${dateFZ}px Inter,sans-serif`;
+    ctx.fillStyle=cDate;ctx.textAlign='left';ctx.textBaseline='top';
+    ctx.fillText(dateStr,cardX+ip,curY);ctx.restore();
+  }
+}
+
+function dlImg(){
+  const canvas=document.getElementById('preview');
+  const a=document.createElement('a');
+  const nm=(document.getElementById('rname').value||'review').replace(/\s+/g,'-').toLowerCase();
+  a.download=`shopify-review-${nm}-${S.aspect}.png`;
+  a.href=canvas.toDataURL('image/png');a.click();
+}
+
+/* Boot */
+initPalette();initStars();initDate();initAppToggles();
+Promise.all([loadLogo(),...APPS.map(a=>loadImg(a.icon))]).then(()=>render());
+</script>
+</body>
+</html>
