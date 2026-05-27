@@ -312,13 +312,15 @@ textarea { resize: none; min-height: 88px; line-height: 1.55; }
       <!-- Reviewer -->
       <div class="sc">
         <div class="sc-title">Reviewer</div>
-        <div class="field">
-          <label class="field-lbl" for="rname">Full name</label>
-          <input type="text" id="rname" value="Matt Barrios" oninput="render()" placeholder="e.g. Sarah Johnson">
-        </div>
-        <div class="field">
-          <label class="field-lbl" for="rdate">Review date</label>
-          <input type="date" id="rdate" oninput="render()">
+        <div style="display:flex; gap:10px;">
+          <div class="field" style="flex:1; min-width:0; margin-bottom:0;">
+            <label class="field-lbl" for="rname">Full name</label>
+            <input type="text" id="rname" value="Matt Barrios" oninput="render()" placeholder="e.g. Sarah Johnson">
+          </div>
+          <div class="field" style="flex:1; min-width:0; margin-bottom:0;">
+            <label class="field-lbl" for="rdate">Review date</label>
+            <input type="date" id="rdate" oninput="render()">
+          </div>
         </div>
       </div>
 
