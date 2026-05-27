@@ -302,7 +302,6 @@ textarea { resize: none; min-height: 88px; line-height: 1.55; }
         <div class="brand-icon">✦</div>
         <div>
           <div class="brand-name">Review Showcase</div>
-          <div class="brand-sub">Shopify Review → Social Image</div>
         </div>
       </div>
     </div>
@@ -324,10 +323,28 @@ textarea { resize: none; min-height: 88px; line-height: 1.55; }
         </div>
       </div>
 
-      <!-- Star Rating -->
-      <div class="sc">
-        <div class="sc-title">Star Rating</div>
-        <div class="stars-row" id="stars-row"></div>
+      <!-- Star Rating + Card Theme side by side -->
+      <div style="display:flex; gap:10px; align-items:flex-start;">
+
+        <div class="sc" style="flex:1; min-width:0;">
+          <div class="sc-title">Star Rating</div>
+          <div class="stars-row" id="stars-row"></div>
+        </div>
+
+        <div class="sc" style="flex:1; min-width:0;">
+          <div class="sc-title">Card Theme</div>
+          <div class="theme-row">
+            <button class="theme-btn" id="btn-light" onclick="setTheme('light')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              Light
+            </button>
+            <button class="theme-btn on" id="btn-dark" onclick="setTheme('dark')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              Dark
+            </button>
+          </div>
+        </div>
+
       </div>
 
       <!-- Review Content -->
@@ -372,21 +389,6 @@ textarea { resize: none; min-height: 88px; line-height: 1.55; }
       <div class="sc">
         <div class="sc-title">Background Gradient</div>
         <div class="pal-grid" id="palette"></div>
-      </div>
-
-      <!-- Card Theme -->
-      <div class="sc">
-        <div class="sc-title">Card Theme</div>
-        <div class="theme-row">
-          <button class="theme-btn" id="btn-light" onclick="setTheme('light')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            Light
-          </button>
-          <button class="theme-btn on" id="btn-dark" onclick="setTheme('dark')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            Dark
-          </button>
-        </div>
       </div>
 
       <!-- Export Format -->
