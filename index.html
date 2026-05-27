@@ -334,33 +334,36 @@ textarea { resize: none; min-height: 88px; line-height: 1.55; }
         <textarea id="rcontent" oninput="render()" placeholder="Paste the review text here…">I couldn't be happier with the service I received! From start to finish, everything was handled with care and professionalism. The team was always there to answer my questions and made sure I was completely satisfied. It's rare to find such great customer service these days—highly recommend!</textarea>
       </div>
 
-      <!-- Display Options -->
-      <div class="sc">
-        <div class="sc-title">Display Options</div>
-        <div class="tog-list">
-          <div class="tog-row">
-            <div><div class="tog-lbl">Profile icon</div></div>
-            <label class="tog"><input type="checkbox" id="tog-avatar" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
-          </div>
-          <div class="tog-row">
-            <div><div class="tog-lbl">Star rating</div></div>
-            <label class="tog"><input type="checkbox" id="tog-stars" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
-          </div>
-          <div class="tog-row">
-            <div><div class="tog-lbl">Review date</div></div>
-            <label class="tog"><input type="checkbox" id="tog-date" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
-          </div>
-          <div class="tog-row">
-            <div><div class="tog-lbl">Shopify logo</div></div>
-            <label class="tog"><input type="checkbox" id="tog-logo" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+      <!-- Display Options + App Logo side by side -->
+      <div style="display:flex; gap:10px; align-items:flex-start;">
+
+        <div class="sc" style="flex:1; min-width:0;">
+          <div class="sc-title">Display Options</div>
+          <div class="tog-list">
+            <div class="tog-row">
+              <div><div class="tog-lbl">Profile icon</div></div>
+              <label class="tog"><input type="checkbox" id="tog-avatar" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+            </div>
+            <div class="tog-row">
+              <div><div class="tog-lbl">Star rating</div></div>
+              <label class="tog"><input type="checkbox" id="tog-stars" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+            </div>
+            <div class="tog-row">
+              <div><div class="tog-lbl">Review date</div></div>
+              <label class="tog"><input type="checkbox" id="tog-date" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+            </div>
+            <div class="tog-row">
+              <div><div class="tog-lbl">Shopify logo</div></div>
+              <label class="tog"><input type="checkbox" id="tog-logo" checked onchange="render()"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- App Logo -->
-      <div class="sc">
-        <div class="sc-title">App Logo</div>
-        <div class="tog-list" id="app-tog-list"></div>
+        <div class="sc" style="flex:1; min-width:0;">
+          <div class="sc-title">App Logo</div>
+          <div class="tog-list" id="app-tog-list"></div>
+        </div>
+
       </div>
 
       <!-- Background Gradient -->
