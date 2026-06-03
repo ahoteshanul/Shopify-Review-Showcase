@@ -282,6 +282,7 @@ textarea { resize: none; min-height: 88px; line-height: 1.55; }
   transition: box-shadow .3s;
 }
 #preview:hover { box-shadow: 0 8px 60px rgba(0,0,0,.18), 0 2px 12px rgba(0,0,0,.1); }
+#preview[data-aspect="square"] { max-height: 72%; }
 
 @media (max-width:860px) {
   .app { grid-template-columns: 1fr; height: auto; overflow: auto; }
@@ -395,13 +396,13 @@ textarea { resize: none; min-height: 88px; line-height: 1.55; }
       <div class="sc">
         <div class="sc-title">Export Format</div>
         <div class="asp-row">
-          <button class="asp-btn on" id="asp-square" onclick="setAspect('square')">
+          <button class="asp-btn" id="asp-square" onclick="setAspect('square')">
             <span class="asp-icon" style="width:17px;height:17px;"></span>Square
           </button>
           <button class="asp-btn" id="asp-stories" onclick="setAspect('stories')">
             <span class="asp-icon" style="width:11px;height:19px;"></span>Stories
           </button>
-          <button class="asp-btn" id="asp-landscape" onclick="setAspect('landscape')">
+          <button class="asp-btn on" id="asp-landscape" onclick="setAspect('landscape')">
             <span class="asp-icon" style="width:23px;height:14px;"></span>Landscape
           </button>
         </div>
@@ -419,7 +420,7 @@ textarea { resize: none; min-height: 88px; line-height: 1.55; }
       <span class="dims-pill" id="cinfo">1080 × 1080px</span>
     </div>
     <div class="prev-wrap">
-      <canvas id="preview"></canvas>
+      <canvas id="preview" data-aspect="landscape"></canvas>
     </div>
   </div>
 
@@ -480,7 +481,7 @@ const APPS = [
   { id:'boostlycart', name:'BoostlyCart Cart Drawer Upsell',                   tagline:'Cart Drawer & Upsell',     icon:'https://cdn.shopify.com/app-store/listing_images/8bc3e3690dfdca1336d343287995ec47/icon/CKLOs9Sog4kDEAE=.png' },
 ];
 
-let S = { theme:'dark', aspect:'square', pi:0, stars:5 };
+let S = { theme:'dark', aspect:'landscape', pi:0, stars:5 };
 // appId → null means no app; string = app id that is toggled on
 // Only one app logo shown at a time via toggle (radio-like)
 S.appId = null;
@@ -577,6 +578,7 @@ function setTheme(t){
 function setAspect(a){
   S.aspect=a;
   ['square','stories','landscape'].forEach(x=>document.getElementById('asp-'+x).classList.toggle('on',x===a));
+  document.getElementById('preview').dataset.aspect=a;
   render();
 }
 function initDate(){
