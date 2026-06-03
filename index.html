@@ -481,7 +481,7 @@ const APPS = [
   { id:'boostlycart', name:'BoostlyCart Cart Drawer Upsell',                   tagline:'Cart Drawer & Upsell',     icon:'https://cdn.shopify.com/app-store/listing_images/8bc3e3690dfdca1336d343287995ec47/icon/CKLOs9Sog4kDEAE=.png' },
 ];
 
-let S = { theme:'dark', aspect:'landscape', pi:0, stars:5 };
+let S = { theme:'dark', aspect:'landscape', pi:1, stars:5 };
 // appId → null means no app; string = app id that is toggled on
 // Only one app logo shown at a time via toggle (radio-like)
 S.appId = null;
@@ -549,7 +549,7 @@ function initPalette(){
   const g=document.getElementById('palette');g.innerHTML='';
   PALS.forEach((p,i)=>{
     const s=document.createElement('div');
-    s.className='swatch'+(i===0?' sel':'');
+    s.className='swatch'+(i===1?' sel':'');
     s.style.background=`linear-gradient(135deg,${p.g[0]},${p.g[1]})`;
     s.onclick=()=>{S.pi=i;document.querySelectorAll('.swatch').forEach((x,j)=>x.classList.toggle('sel',j===i));render();};
     g.appendChild(s);
