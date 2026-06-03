@@ -677,7 +677,7 @@ function render(){
 
   /* Logo size */
   const lsz=Math.round(cardW*(isL?.062:.09));
-  const logoGap=Math.round(lsz*.16);
+  const logoGap=Math.round(lsz*.36);
 
   /* Total logo group width — determines how much space we need top-right */
   const totalLogoW=(showLogo&&showApp)
@@ -732,16 +732,16 @@ function render(){
   const groupLeftEdge=groupRightEdge-totalLogoW;
 
   if(showLogo&&showApp){
-    /* App logo left, Shopify right */
-    const appX=groupLeftEdge;
-    const shopX=appX+lsz+logoGap;
+    /* Shopify left, App logo right */
+    const shopX=groupLeftEdge;
+    const appX=shopX+lsz+logoGap;
+    /* Shopify logo */
+    if(shopifyLogo){const p=lsz*.06;ctx.save();ctx.drawImage(shopifyLogo,shopX+p,logoCY-lsz/2+p,lsz-p*2,lsz-p*2);ctx.restore();}
+    else drawLogoFallback(ctx,shopX+lsz/2,logoCY,lsz);
     /* App logo clipped rounded */
     ctx.save();
     rrect(ctx,appX,logoCY-lsz/2,lsz,lsz,lsz*.18);
     ctx.clip();ctx.drawImage(appImg,appX,logoCY-lsz/2,lsz,lsz);ctx.restore();
-    /* Shopify logo */
-    if(shopifyLogo){const p=lsz*.06;ctx.save();ctx.drawImage(shopifyLogo,shopX+p,logoCY-lsz/2+p,lsz-p*2,lsz-p*2);ctx.restore();}
-    else drawLogoFallback(ctx,shopX+lsz/2,logoCY,lsz);
   } else if(showLogo){
     const lx=groupRightEdge-lsz/2;
     if(shopifyLogo){const p=lsz*.06;ctx.save();ctx.drawImage(shopifyLogo,lx-lsz/2+p,logoCY-lsz/2+p,lsz-p*2,lsz-p*2);ctx.restore();}
